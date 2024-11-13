@@ -9,12 +9,12 @@
                 <span class="border-r border-text-tient pr-4 mr-4">Email Hub</span>
                 <div class="flex gap-4">
                     <NuxtLink to="/" class="font-light">Users</NuxtLink>
-                    <NuxtLink to="/" class="font-light">Templates</NuxtLink>
+                    <NuxtLink to="/email" class="font-light">Templates</NuxtLink>
                     <NuxtLink to="/" class="font-light">Analytics</NuxtLink>
                     <NuxtLink to="/" class="font-light">Schedule Email</NuxtLink>
                 </div>
             </div>
-            <div class="font-light">Account</div>
+            <NuxtLink to="/account" class="font-light">Account</NuxtLink>
         </div>
     </div>
 </template>

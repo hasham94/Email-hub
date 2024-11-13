@@ -12,7 +12,12 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     'radix-vue/nuxt',
     '@nuxtjs/google-fonts',
+    'nuxt-tiptap-editor',
+    '@nuxtjs/supabase'
   ],
+  tiptap: {
+    prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
+  },
   shadcn: {
     /**
      * Prefix for all the imported component
