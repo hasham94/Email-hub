@@ -85,3 +85,7 @@ npm i vee-validate --save
 
 Added Yup Building schema for runtime value parsing
 https://www.npmjs.com/package/yup
+
+Added Supabase as DB
+npm install @nuxtjs/supabase --save-dev
+Documentation: https://supabase.com/docs/guides/getting-started/tutorials/with-nuxt-3

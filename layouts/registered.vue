@@ -5,7 +5,9 @@
 <template>
     <div class="flex flex-col min-h-screen">
         <LayoutRegisteredHeader />
-        <slot />
+        <div class="flex-1">
+            <slot />
+        </div>
         <LayoutRegisteredFooter />
     </div>
 </template>

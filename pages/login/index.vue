@@ -2,21 +2,36 @@
 import { ref } from "vue";
 import { useForm } from 'vee-validate'
 import * as yup from 'yup';
+const supabase = useSupabaseClient()
 
 
 const isEmailSubmit = ref(false)
+const loading = ref(false)
 
 const { values, errors, defineField } = useForm({
-  validationSchema: yup.object({
-    email: yup.string().email().required(),
-  }),
+    validationSchema: yup.object({
+        email: yup.string().email().required(),
+    }),
 });
 
 const [email, emailProps] = defineField('email');
 
-const submitLogin = () => {
-    if(email.value) {
-        isEmailSubmit.value = true
+const submitLogin = async () => {
+
+    if (email.value) {
+        try {
+            loading.value = true
+            const { error } = await supabase.auth.signInWithOtp({ email: email.value, options: {
+                shouldCreateUser: true,
+                emailRedirectTo: 'http://localhost:3001/login/confirm'
+            } })
+            if (error) throw error
+            isEmailSubmit.value = true
+        } catch (error) {
+            // error here
+        } finally {
+            loading.value = false
+        }
     }
 }
 </script>
@@ -29,10 +44,11 @@ const submitLogin = () => {
                 <span class="text-neutral-teint font-light">Sending newsletters easy way</span>
             </div>
             <div class="flex flex-col gap-3" v-if="!isEmailSubmit">
-                <Input v-model="email"/>
+                <Input v-model="email" />
                 <span class="text-red-500 text-sm">{{ errors.email }}</span>
                 <Button @click="submitLogin">Get Magic Link</Button>
-                <span class="block mt-3 text-xs">By singning in, you agree to out Terms and Services and Privacy Policy</span>
+                <span class="block mt-3 text-xs">By singning in, you agree to out Terms and Services and Privacy
+                    Policy</span>
             </div>
             <div v-else>
                 <p>Magic Link sent to <span class="text-sky-600">{{ email }}</span></p>
