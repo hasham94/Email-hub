@@ -1,3 +1,4 @@
+// its not used in the project but i have kept it for refrence
 export function generateDummyData(n: number) {
     const dummyData = Array.from({ length: n }, (_, index) => ({
         id: generateId(),

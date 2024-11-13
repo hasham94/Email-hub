@@ -3,10 +3,10 @@ import type { ColumnDef } from '@tanstack/vue-table'
 
 export const columns: ColumnDef<any>[] = [
     {
-        accessorKey: 'name',
+        accessorKey: 'user_name',
         header: () => h('div', { class: 'text-left' }, 'Name'),
         cell: ({ row }) => {
-            const name: string = row.getValue('name')
+            const name: string = row.getValue('user_name')
 
             return h('div', { class: 'text-left' }, name);
         },
@@ -21,12 +21,32 @@ export const columns: ColumnDef<any>[] = [
         },
     },
     {
-        accessorKey: 'createdAt',
+        accessorKey: 'created_at',
         header: () => h('div', { class: 'text-left' }, 'Created At'),
         cell: ({ row }) => {
-            const createdAt: string = row.getValue('createdAt')
+            const createdAt: string = row.getValue('created_at')
+            const date = new Date(createdAt)
 
-            return h('div', { class: 'text-left' }, createdAt);
+            // Format the date (e.g., MM/DD/YYYY HH:MM AM/PM)
+            const formattedDate = date.toLocaleString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+            });
+
+            return h('div', { class: 'text-left' }, formattedDate);
+        },
+    },
+    {
+        accessorKey: 'audience',
+        header: () => h('div', { class: 'text-left' }, 'Audience'),
+        cell: ({ row }) => {
+            const audience: string = row.getValue('audience')
+
+            return h('div', { class: 'text-left' }, audience);
         },
     },
     {

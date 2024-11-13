@@ -4,12 +4,16 @@ const user = useSupabaseUser()
 
 const isLoggedIn = ref<boolean>(false)
 const userName = ref<string>('')
-watch(user, () => {
-  if (!user.value) {
-      return navigateTo('/login')
+
+onMounted(async () => {
+  const { data, error } = await supabase.auth.getSession()
+  if (user.value || data?.session) {
+    isLoggedIn.value = true
+    return;
+  } else if (error) {
+    console.error('Error fetching session:', error.message)
   }
-  isLoggedIn.value = true
-}, { immediate: true })
+})
 
 const updateUser = async () => {
     const { error } = await supabase.auth.updateUser({

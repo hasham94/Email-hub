@@ -3,13 +3,17 @@
 definePageMeta({
     layout: 'registered'
 })
+const supabase = useSupabaseClient()
 import { columns } from "../columns/users"
-import { generateDummyData } from "../mockData/users" // this will be removed after API implementation
 
 const data = ref<any>([]) //type any will be removed after scehema design
 
-onMounted(() => {
-    data.value = generateDummyData(10)
+onMounted(async () => {
+    const { data: users } = await supabase
+    .from('users')
+    .select('*')
+
+    data.value = users
 })
 
 </script>

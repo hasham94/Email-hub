@@ -3,12 +3,21 @@ import { ref } from "vue";
 import { useForm } from 'vee-validate'
 import * as yup from 'yup';
 const supabase = useSupabaseClient()
+const user = useSupabaseUser()
+const router = useRouter()
+
+// // Redirect to dashboard if user is already logged in
+// if (user.value) {
+//   router.push('/')
+// }
+
 
 
 const isEmailSubmit = ref(false)
 const loading = ref(false)
+const errorMessage = ref('')
 
-const { values, errors, defineField } = useForm({
+const { errors, defineField } = useForm({
     validationSchema: yup.object({
         email: yup.string().email().required(),
     }),
@@ -16,16 +25,24 @@ const { values, errors, defineField } = useForm({
 
 const [email, emailProps] = defineField('email');
 
+watch(email , () => {
+    if(errorMessage.value) {
+        errorMessage.value = ''
+    }
+})
+
 const submitLogin = async () => {
 
     if (email.value) {
         try {
             loading.value = true
             const { error } = await supabase.auth.signInWithOtp({ email: email.value, options: {
-                shouldCreateUser: true,
-                emailRedirectTo: 'http://localhost:3001/login/confirm'
+                emailRedirectTo: 'http://localhost:3001/confirm' // update with env url   
             } })
-            if (error) throw error
+            if (error) {
+                errorMessage.value = error.message
+                throw error
+            }
             isEmailSubmit.value = true
         } catch (error) {
             // error here
@@ -45,7 +62,7 @@ const submitLogin = async () => {
             </div>
             <div class="flex flex-col gap-3" v-if="!isEmailSubmit">
                 <Input v-model="email" />
-                <span class="text-red-500 text-sm">{{ errors.email }}</span>
+                <span class="text-red-500 text-sm">{{ errors.email || errorMessage }}</span>
                 <Button @click="submitLogin">Get Magic Link</Button>
                 <span class="block mt-3 text-xs">By singning in, you agree to out Terms and Services and Privacy
                     Policy</span>
