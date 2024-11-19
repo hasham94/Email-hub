@@ -44,7 +44,7 @@ export const columns: ColumnDef<any>[] = [
         accessorKey: 'audience',
         header: () => h('div', { class: 'text-left' }, 'Audience'),
         cell: ({ row }) => {
-            const audience: string = row.getValue('audience')
+            const audience: string = row.getValue('audience') || 'everyone'
 
             return h('div', { class: 'text-left' }, audience);
         },

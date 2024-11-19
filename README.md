@@ -89,3 +89,5 @@ https://www.npmjs.com/package/yup
 Added Supabase as DB
 npm install @nuxtjs/supabase --save-dev
 Documentation: https://supabase.com/docs/guides/getting-started/tutorials/with-nuxt-3
+
+For end to end queiries rules needs to be created as per user to request the table.
