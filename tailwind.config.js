@@ -58,6 +58,9 @@ export default {
           darker: '#9B9B9B',
           black: '#130210',
         },
+        green: {
+          500: '#2a992a'
+        },
       },
       borderRadius: {
         xl: 'calc(var(--radius) + 4px)',
