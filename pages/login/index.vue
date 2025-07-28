@@ -6,12 +6,10 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const router = useRouter()
 
-// // Redirect to dashboard if user is already logged in
-// if (user.value) {
-//   router.push('/')
-// }
-
-
+// Redirect to dashboard if user is already logged in
+if (user.value) {
+  router.push('/')
+}
 
 const isEmailSubmit = ref(false)
 const loading = ref(false)
