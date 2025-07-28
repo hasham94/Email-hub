@@ -10,7 +10,7 @@
                 <div class="flex gap-4">
                     <NuxtLink to="/" class="font-light">Users</NuxtLink>
                     <NuxtLink to="/email" class="font-light">Templates</NuxtLink>
-                    <NuxtLink to="/" class="font-light">Analytics</NuxtLink>
+                    <NuxtLink to="/analytics" class="font-light">Analytics</NuxtLink>
                     <NuxtLink to="/schedule" class="font-light">Schedule Email</NuxtLink>
                 </div>
             </div>
